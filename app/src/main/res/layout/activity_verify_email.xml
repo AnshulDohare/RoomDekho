@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white"
+    tools:context=".authentication.VerifyEmail">
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="189dp"
+        android:layout_height="153dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="24dp"
+        android:src="@mipmap/ic_launcher_foreground"
+        tools:ignore="ContentDescription" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="Room Dekho"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+    android:id="@+id/createAccountTextView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:gravity="center"
+    android:text="An verification link sent on your Email Id.\nVerify your email and then log in.\nWithout verification you will not able to log in."
+    android:layout_gravity="center"
+    android:textSize="16sp"
+    android:textStyle="bold"
+    android:textColor="@color/black"
+    tools:ignore="HardcodedText" />
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Log In"
+        android:textSize="24sp"
+        android:backgroundTint="@color/black"
+        tools:ignore="HardcodedText" />
+
+
+
+</LinearLayout>

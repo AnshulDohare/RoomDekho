@@ -23,10 +23,14 @@ import androidx.fragment.app.Fragment;
 
 import com.example.roomdekho.R;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+
+import org.checkerframework.framework.qual.Unused;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -168,19 +172,40 @@ public class AddRooms extends Fragment {
         map.put("rAddress",address1);
         map.put("rRent",rent1);
         map.put("rDescription",description1);
+        map.put("rUserId",FirebaseAuth.getInstance().getUid());
         ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setCancelable(false);
         progressDialog.show();
 
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        firestore.collection(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).document("Room1").set(map).addOnSuccessListener(unused -> firebaseStorage.getReference().child("RoomsPic/"+FirebaseAuth.getInstance().getUid()+"/pic1").putFile(imgUri).addOnSuccessListener(taskSnapshot -> {
+            firestore.collection("AllRooms").document(FirebaseAuth.getInstance().getUid()).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    firebaseStorage.getReference().child("RoomsPic/" + FirebaseAuth.getInstance().getUid() + "/pic1").putFile(imgUri).addOnSuccessListener(taskSnapshot -> {
+                        progressDialog.dismiss();
+                        //Toast.makeText(getContext(), "Successfully Room Added", Toast.LENGTH_LONG).show();
+                    }).addOnFailureListener(e -> {
+                        progressDialog.dismiss();
+                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressDialog.dismiss();
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+        firestore.collection(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).document("Room1").set(map).addOnSuccessListener(unused -> {
+                /*firebaseStorage.getReference().child("RoomsPic/"+FirebaseAuth.getInstance().getUid()+"/pic1").putFile(imgUri).addOnSuccessListener(taskSnapshot -> {
             progressDialog.dismiss();
             Toast.makeText(getContext(), "Successfully Room Added", Toast.LENGTH_LONG).show();
         }).addOnFailureListener(e -> {
             progressDialog.dismiss();
             Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-        })).addOnFailureListener(e -> {
+        });*/}).addOnFailureListener(e -> {
             progressDialog.dismiss();
             Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         });

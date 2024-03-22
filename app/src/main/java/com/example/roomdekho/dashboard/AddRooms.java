@@ -1,15 +1,10 @@
 package com.example.roomdekho.dashboard;
 
-import android.content.DialogInterface;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +12,25 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 
 import com.example.roomdekho.R;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class AddRooms extends Fragment {
     final String[] cities = {"Bhopal","Indore","Balaghat"};
@@ -110,64 +116,74 @@ public class AddRooms extends Fragment {
 
         selectImg.setOnClickListener(v->imageSelecting());
 
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        submit.setOnClickListener(v -> {
 
-                String address1 = address.getText().toString().trim();
-                String rent1 = rent.getText().toString().trim();
-                String description1 = roomDiscription.getText().toString().trim();
+            String address1 = Objects.requireNonNull(address.getText()).toString().trim();
+            String rent1 = Objects.requireNonNull(rent.getText()).toString().trim();
+            String description1 = Objects.requireNonNull(roomDiscription.getText()).toString().trim();
 
-                if(address1.isEmpty()){
-                    address.setError("Enter Address");
-                }
-                else if(rent1.isEmpty()){
-                    rent.setError("Enter Rent");
-                }
-                else if(description1.isEmpty()){
-                    roomDiscription.setError("Enter Room Description");
-                }
-                else if(imgUri==null){
-                    selectImg.setError("Upload Room Image");
-                }
-                else{
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setIcon(R.mipmap.ic_launcher_foreground);
-                    builder.setTitle("Preview");
-                    String alertMessage = "*City : "+selectedCity+"\n"+
-                            "*Area : "+selectedArea +"\n"+
-                            "*Address : "+address1 +"\n"+
-                            "*Rent : "+rent1 + "\n"+
-                            "*Room Description "+description1;
-                    builder.setMessage(alertMessage);
-                    builder.setCancelable(false);
-                    builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            AddingRoomInfo(address1,rent1,description1);
-                        }
-                    }).setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+            if(address1.isEmpty()){
+                address.setError("Enter Address");
+            }
+            else if(rent1.isEmpty()){
+                rent.setError("Enter Rent");
+            }
+            else if(description1.isEmpty()){
+                roomDiscription.setError("Enter Room Description");
+            }
+            else if(imgUri==null){
+                selectImg.setError("Upload Room Image");
+            }
+            else{
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                builder.setIcon(R.mipmap.ic_launcher_foreground);
+                builder.setTitle("Preview");
+                String alertMessage = "*City : "+selectedCity+"\n"+
+                        "*Area : "+selectedArea +"\n"+
+                        "*Address : "+address1 +"\n"+
+                        "*Rent : "+rent1 + "\n"+
+                        "*Room Description :"+description1;
+                builder.setMessage(alertMessage);
+                builder.setCancelable(false);
+                builder.setPositiveButton("Add", (dialog, which) -> AddingRoomInfo(address1,rent1,description1)).setNegativeButton("Cancle", (dialog, which) -> {
 
-                        }
-                    });
-                    builder.show();
-
-                }
-
-
-
-
+                });
+                builder.show();
 
             }
+
+
+
+
+
         });
 
         return view;
     }
 
-    private void AddingRoomInfo(String address1, String rent1, String description1) {
+    private void AddingRoomInfo(String address1, String rent1, String description1){
+        HashMap<String,String> map = new HashMap<>();
+        map.put("rCity",selectedCity);
+        map.put("rArea",selectedArea);
+        map.put("rAddress",address1);
+        map.put("rRent",rent1);
+        map.put("rDescription",description1);
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        firestore.collection(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).document("Room1").set(map).addOnSuccessListener(unused -> firebaseStorage.getReference().child("RoomsPic/"+FirebaseAuth.getInstance().getUid()+"/pic1").putFile(imgUri).addOnSuccessListener(taskSnapshot -> {
+            progressDialog.dismiss();
+            Toast.makeText(getContext(), "Successfully Room Added", Toast.LENGTH_LONG).show();
+        }).addOnFailureListener(e -> {
+            progressDialog.dismiss();
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        })).addOnFailureListener(e -> {
+            progressDialog.dismiss();
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        });
     }
 
     private void imageSelecting() {
@@ -182,8 +198,8 @@ public class AddRooms extends Fragment {
         if(requestCode==IMG_REQ_CODE && resultCode==-1 && data!=null){
             imgUri = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),imgUri);
-                roomImg.setImageURI(imgUri);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(),imgUri);
+                roomImg.setImageBitmap(bitmap);
                 roomImg.setVisibility(View.VISIBLE);
             } catch (IOException e) {
                 throw new RuntimeException(e);

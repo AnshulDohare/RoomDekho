@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp"
-    android:background="#D7FFB3">
+    android:background="#D7FFB3"
+    android:theme="?attr/actionBarTheme">
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:src="@drawable/baseline_menu_34"
         android:onClick="onMenuClicked"
-        tools:ignore="ContentDescription" />
+        android:src="@drawable/baseline_menu_34"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck,UsingOnClickInXml" />
     <TextView
+        android:id="@+id/action_bar_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
@@ -22,10 +26,11 @@
         android:textSize="25sp"
         android:text="@string/app_name"
         android:textAlignment="center"/>
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_gravity="left"
         android:src="@drawable/baseline_more_vert_34"
         tools:ignore="ContentDescription" />
 </LinearLayout>

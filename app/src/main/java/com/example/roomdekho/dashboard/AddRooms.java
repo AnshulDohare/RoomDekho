@@ -41,13 +41,15 @@ public class AddRooms extends Fragment {
     final String[] areasBhopal = {"Ashoka Garden","LalGhati","MP Nagar"};
     final String[] areasIndore = {"Holker Stadium","IIT"};
     final String[] areasBalaghat = {"Railway Station","College"};
-    Spinner selectCity,selectArea;
+    final String[] roomNumbers = {"Room1","Room2","Room3","Room4","Room5"};
+    Spinner selectCity,selectArea,selectRoomNumber;
     TextInputEditText address,rent,roomDiscription;
     Button selectImg,submit;
     ImageView roomImg;
-    ArrayAdapter<String> cityAdapter,areaAdapter;
+    ArrayAdapter<String> cityAdapter,areaAdapter,roomNumberAdapter;
     String selectedCity;
     String selectedArea;
+    String selectedRoom;
     int IMG_REQ_CODE = 121;
     Uri imgUri;
     public AddRooms() {
@@ -68,6 +70,7 @@ public class AddRooms extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_add_rooms, container, false);
         selectCity = view.findViewById(R.id.addCity);
         selectArea = view.findViewById(R.id.addArea);
+        selectRoomNumber = view.findViewById(R.id.roomNumber);
         address = view.findViewById(R.id.addAddress);
         rent = view.findViewById(R.id.addRent);
         roomDiscription = view.findViewById(R.id.addRoomDiscription);
@@ -81,6 +84,8 @@ public class AddRooms extends Fragment {
         selectCity.setAdapter(cityAdapter);
         areaAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,areasBhopal);
         selectArea.setAdapter(areaAdapter);
+        roomNumberAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,roomNumbers);
+        selectRoomNumber.setAdapter(roomNumberAdapter);
         selectCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -118,6 +123,18 @@ public class AddRooms extends Fragment {
             }
         });
 
+        selectRoomNumber.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedRoom = roomNumberAdapter.getItem(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         selectImg.setOnClickListener(v->imageSelecting());
 
         submit.setOnClickListener(v -> {
@@ -144,6 +161,7 @@ public class AddRooms extends Fragment {
                 builder.setTitle("Preview");
                 String alertMessage = "*City : "+selectedCity+"\n"+
                         "*Area : "+selectedArea +"\n"+
+                        "*Room Number : "+selectedRoom+"\n"+
                         "*Address : "+address1 +"\n"+
                         "*Rent : "+rent1 + "\n"+
                         "*Room Description :"+description1;
@@ -172,6 +190,7 @@ public class AddRooms extends Fragment {
         map.put("rAddress",address1);
         map.put("rRent",rent1);
         map.put("rDescription",description1);
+        map.put("rRoomNumber",selectedRoom);
         map.put("rUserId",FirebaseAuth.getInstance().getUid());
         ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setCancelable(false);
@@ -179,10 +198,10 @@ public class AddRooms extends Fragment {
 
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-            firestore.collection("AllRooms").document(FirebaseAuth.getInstance().getUid()).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            firestore.collection("AllRooms").document(FirebaseAuth.getInstance().getUid()+selectedRoom).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
-                    firebaseStorage.getReference().child("RoomsPic/" + FirebaseAuth.getInstance().getUid() + "/pic1").putFile(imgUri).addOnSuccessListener(taskSnapshot -> {
+                    firebaseStorage.getReference().child("RoomsPic/" + FirebaseAuth.getInstance().getUid() + "/"+selectedRoom).putFile(imgUri).addOnSuccessListener(taskSnapshot -> {
                         progressDialog.dismiss();
                         //Toast.makeText(getContext(), "Successfully Room Added", Toast.LENGTH_LONG).show();
                     }).addOnFailureListener(e -> {
@@ -198,7 +217,7 @@ public class AddRooms extends Fragment {
                 }
             });
 
-        firestore.collection(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).document("Room1").set(map).addOnSuccessListener(unused -> {
+        firestore.collection(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).document(selectedRoom).set(map).addOnSuccessListener(unused -> {
                 /*firebaseStorage.getReference().child("RoomsPic/"+FirebaseAuth.getInstance().getUid()+"/pic1").putFile(imgUri).addOnSuccessListener(taskSnapshot -> {
             progressDialog.dismiss();
             Toast.makeText(getContext(), "Successfully Room Added", Toast.LENGTH_LONG).show();

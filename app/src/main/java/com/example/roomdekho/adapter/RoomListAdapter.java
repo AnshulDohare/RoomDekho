@@ -21,11 +21,9 @@ import java.util.ArrayList;
 
 public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ViewHolder> {
     ArrayList<RoomInfo> list;
-    //Uri imgUri;
     Context context ;
     public RoomListAdapter(Context context, ArrayList<RoomInfo> list){
         this.list = list;
-        //this.imgUri = uri;
         this.context = context;
     }
     @NonNull
@@ -42,7 +40,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ViewHo
         holder.roomAddress.setText("Address : "+list.get(position).rAddress);
         holder.roomRent.setText("Rent : "+list.get(position).rRent+" Rs.");
         holder.roomDescription.setText("Room Description : "+list.get(position).rDescription);
-        FirebaseStorage.getInstance().getReference().child("RoomsPic/" + list.get(position).rImageUri + "/pic1").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        FirebaseStorage.getInstance().getReference().child(list.get(position).rImageUri).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(context).load(uri).placeholder(R.mipmap.ic_launcher_foreground).into(holder.roomImage);

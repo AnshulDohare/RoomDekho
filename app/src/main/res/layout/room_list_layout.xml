@@ -4,11 +4,12 @@
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:layout_marginStart="8dp"
     android:layout_marginTop="8dp"
     android:layout_marginEnd="8dp"
     android:layout_marginBottom="8dp"
-    app:cardBackgroundColor="@color/white"
+    app:cardBackgroundColor="#FFF8CF"
     app:cardCornerRadius="8dp">
 
     <LinearLayout
@@ -19,9 +20,10 @@
         <!-- Room Image -->
         <ImageView
             android:id="@+id/image_room"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
+            android:layout_marginTop="8dp"
             android:src="@mipmap/ic_launcher_foreground" />
 
         <!-- City and Area -->
@@ -29,7 +31,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:paddingStart="16sp"
+            android:paddingEnd="16dp">
 
             <TextView
                 android:id="@+id/text_city"
@@ -61,7 +64,7 @@
             android:text="Rent: $500/month"
             android:textStyle="bold"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <!-- Room Address -->
         <TextView
@@ -73,7 +76,7 @@
             android:text="Address: MP Nagar"
             android:textStyle="bold"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <!-- Room Description -->
         <TextView
@@ -85,7 +88,8 @@
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod ligula ac magna laoreet, ut eleifend justo tincidunt."
             android:textColor="@android:color/black"
             android:textStyle="bold"
-            android:textSize="14sp" />
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

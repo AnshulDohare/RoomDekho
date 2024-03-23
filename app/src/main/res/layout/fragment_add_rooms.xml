@@ -37,6 +37,12 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10sp"
                 tools:ignore="TouchTargetSizeCheck" />
+            <Spinner
+                android:id="@+id/roomNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                tools:ignore="TouchTargetSizeCheck" />
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

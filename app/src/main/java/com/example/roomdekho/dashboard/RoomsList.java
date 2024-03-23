@@ -59,7 +59,7 @@ public class RoomsList extends Fragment {
                 roomsList.clear();
                 for(DocumentSnapshot documentSnapshot:value){
                     roomsList.add(new RoomInfo(documentSnapshot.getString("rCity"),documentSnapshot.getString("rArea"),documentSnapshot.getString("rAddress"),
-                            documentSnapshot.getString("rRent"),documentSnapshot.getString("rDescription"), documentSnapshot.getString("rUserId")));
+                            documentSnapshot.getString("rRent"),documentSnapshot.getString("rDescription"), "RoomsPic/"+documentSnapshot.getString("rUserId")+"/"+documentSnapshot.getString("rRoomNumber")));
                 }
                 roomListAdapter.notifyDataSetChanged();
             }

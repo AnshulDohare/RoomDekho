@@ -53,8 +53,7 @@ public class Home extends AppCompatActivity {
     }
     public void onProfileClicked(View view){
         actionBarName.setText("Profile");
-        String str = String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-        fragment = new Profile(str);
+        fragment = new Profile();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.linearlayout,fragment);
         fragmentTransaction.commit();

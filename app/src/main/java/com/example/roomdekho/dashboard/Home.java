@@ -9,8 +9,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.animation.LayoutTransition;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -34,6 +36,7 @@ public class Home extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         actionBarName = findViewById(R.id.action_bar_name);
         actionBarName.setText("Rooms List");
 
@@ -71,6 +74,15 @@ public class Home extends AppCompatActivity {
     public void onAddRoomsClicked(View view){
         actionBarName.setText("Add Rooms");
         fragment = new AddRooms();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.linearlayout,fragment);
+        fragmentTransaction.commit();
+        binding.drawerLayout.closeDrawer(GravityCompat.START);
+    }
+    @SuppressLint("SetTextI18n")
+    public void onPrivacyClicked(View view){
+        actionBarName.setText("Privacy & Policy");
+        fragment = new PrivacyAndPolicy();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.linearlayout,fragment);
         fragmentTransaction.commit();

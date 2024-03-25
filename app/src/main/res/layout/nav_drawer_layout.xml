@@ -165,6 +165,7 @@
         android:padding="2dp"
         android:layout_marginBottom="5dp"
         android:gravity="center"
+        android:onClick="onPrivacyClicked"
         tools:ignore="UseCompoundDrawables">
         <ImageView
             android:layout_width="wrap_content"

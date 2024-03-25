@@ -15,7 +15,8 @@
 
         <activity
             android:name=".dashboard.OpeningPage"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
@@ -27,12 +28,15 @@
             android:name=".dashboard.Home"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".authentication.VerifyEmail"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".authentication.SignUpPage"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".authentication.LogInPage"
             android:exported="true">
         </activity>

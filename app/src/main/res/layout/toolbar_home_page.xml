@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp"
-    android:background="#D7FFB3"
+    android:background="@color/secondaryColor"
     android:theme="?attr/actionBarTheme">
 
     <ImageView
@@ -19,7 +19,7 @@
         android:id="@+id/action_bar_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_weight="1"
         android:textStyle="bold"
         android:textSize="25sp"

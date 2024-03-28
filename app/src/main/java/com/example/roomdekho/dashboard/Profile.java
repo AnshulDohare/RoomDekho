@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -16,7 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -45,7 +48,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Profile extends Fragment {
-
+    ScrollView layout_profile;
     TextInputEditText emailId,profileMobile,profileAddress,profileName;
     Button profileSave;
     ImageView profileImage;
@@ -72,6 +75,7 @@ public class Profile extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_profile, container, false);
+        layout_profile = view.findViewById(R.id.profile_scroll_layout);
         emailId = view.findViewById(R.id.profileEmail);
         profileImage = view.findViewById(R.id.profileImage);
         profession = view.findViewById(R.id.profileProfession);
@@ -105,11 +109,12 @@ public class Profile extends Fragment {
             public void run() {
                 super.run();
                 try {
-                    sleep(20000);
+                    sleep(10000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
                 progressDialog.dismiss();
+                layout_profile.setVisibility(View.VISIBLE);
             }
         };
         thread.start();
@@ -142,6 +147,7 @@ public class Profile extends Fragment {
                         }
                     }
                     progressDialog.dismiss();
+                    layout_profile.setVisibility(View.VISIBLE);
                 }
             }
 

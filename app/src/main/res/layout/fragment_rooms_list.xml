@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
+    android:background="@color/primaryColor"
     tools:context=".dashboard.RoomsList">
 
     <!-- TODO: Update blank fragment layout -->
@@ -15,9 +15,9 @@
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchRoom"
             android:layout_width="match_parent"
-            android:hint="Enter City or Area"
             android:layout_height="wrap_content"
             android:padding="5dp"
+            app:queryHint="Enter City or Area"
             android:elevation="10dp"
             android:layout_marginBottom="8dp"/>
         <androidx.recyclerview.widget.RecyclerView

@@ -4,28 +4,17 @@
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     android:layout_marginStart="8dp"
     android:layout_marginTop="8dp"
     android:layout_marginEnd="8dp"
     android:layout_marginBottom="8dp"
-    app:cardBackgroundColor="#FFF8CF"
+    app:cardBackgroundColor="@color/tertiaryColor"
     app:cardCornerRadius="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <!-- Room Image -->
-        <ImageView
-            android:id="@+id/image_room"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:src="@mipmap/ic_launcher_foreground" />
-
         <!-- City and Area -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,32 +27,34 @@
                 android:id="@+id/text_city"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="City"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/text_area"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Area"
-                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
 
+            <!-- Room Image -->
+            <ImageView
+                android:id="@+id/image_room"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="right"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher_foreground" />
         </LinearLayout>
 
-        <!-- Room Rent -->
+        <!-- Area -->
         <TextView
-            android:id="@+id/text_rent"
+            android:id="@+id/text_area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:text="Rent: $500/month"
+            android:text="Area"
             android:textStyle="bold"
-            android:textColor="@android:color/black"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <!-- Room Address -->
@@ -75,9 +66,20 @@
             android:paddingEnd="16dp"
             android:text="Address: MP Nagar"
             android:textStyle="bold"
-            android:textColor="@android:color/black"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
+        <!-- Room Rent -->
+        <TextView
+            android:id="@+id/text_rent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="Rent: $500/month"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
         <!-- Room Description -->
         <TextView
             android:id="@+id/text_description"
@@ -86,7 +88,7 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod ligula ac magna laoreet, ut eleifend justo tincidunt."
-            android:textColor="@android:color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="16sp"
             android:layout_marginBottom="8dp"/>

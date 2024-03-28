@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/white"
+    android:background="@color/primaryColor"
     tools:context=".dashboard.OpeningPage">
 
     <ImageView
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:text="Room Dekho"
         android:gravity="center_horizontal"/>
 

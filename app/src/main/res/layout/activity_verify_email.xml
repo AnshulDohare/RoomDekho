@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/white"
+    android:background="@color/primaryColor"
     tools:context=".authentication.VerifyEmail">
 
     <ImageView
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:text="Room Dekho"
         android:gravity="center_horizontal"/>
 
@@ -36,17 +36,21 @@
     android:layout_gravity="center"
     android:textSize="16sp"
     android:textStyle="bold"
-    android:textColor="@color/black"
+    android:textColor="@color/white"
     tools:ignore="HardcodedText" />
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Log In"
-        android:textSize="24sp"
-        android:backgroundTint="@color/black"
-        tools:ignore="HardcodedText" />
+        android:layout_height="?attr/actionBarSize"
+        android:backgroundTint="@color/tertiaryColor"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:textSize="25sp"
+        android:elevation="20dp"
+        android:text="Log In" />
 
 
 

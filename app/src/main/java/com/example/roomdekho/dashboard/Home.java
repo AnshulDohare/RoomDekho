@@ -16,8 +16,11 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.roomdekho.R;
 import com.example.roomdekho.databinding.ActivityHomeBinding;
@@ -72,12 +75,41 @@ public class Home extends AppCompatActivity {
         binding.drawerLayout.closeDrawer(GravityCompat.START);
     }
     public void onAddRoomsClicked(View view){
-        actionBarName.setText("Add Rooms");
-        fragment = new AddRooms();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.linearlayout,fragment);
-        fragmentTransaction.commit();
-        binding.drawerLayout.closeDrawer(GravityCompat.START);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        View aView = getLayoutInflater().inflate(R.layout.custom_alert_layout,null);
+        EditText etCode = aView.findViewById(R.id.et_code);
+        Button btnSubmit = aView.findViewById(R.id.btn_submit);
+        Button btnCancel = aView.findViewById(R.id.btn_cancel);
+
+        alert.setView(aView);
+        AlertDialog dialog = alert.create();
+        dialog.setCancelable(false);
+        dialog.show();
+
+        btnSubmit.setOnClickListener(v->{
+            String code = etCode.getText().toString().trim();
+            if(code.isEmpty()){
+                etCode.setError("Enter Code");
+            }
+            else if(code.length()<6){
+                etCode.setError("Enter 6 Digit Code");
+            }
+            else if(code.equals("100303")){
+                actionBarName.setText("Add Rooms");
+                fragment = new AddRooms();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.linearlayout,fragment);
+                fragmentTransaction.commit();
+                binding.drawerLayout.closeDrawer(GravityCompat.START);
+                dialog.dismiss();
+            }
+            else{
+                Toast.makeText(this, "Wrong Code", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnCancel.setOnClickListener(v->dialog.dismiss());
+
     }
     @SuppressLint("SetTextI18n")
     public void onPrivacyClicked(View view){

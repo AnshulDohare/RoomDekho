@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@color/primaryColor"
     android:padding="16dp"
     tools:context=".authentication.SignUpPage">
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:text="Room Dekho"
         android:gravity="center_horizontal"/>
 
@@ -30,16 +30,20 @@
         android:id="@+id/emailInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Email"
+        app:hintTextColor="@color/colorAccent"
+        app:boxStrokeColor="@color/colorAccent"
+        app:cursorColor="@color/white"
         android:layout_marginTop="24dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="18sp"
+            android:textCursorDrawable="@color/white"
             android:inputType="textEmailAddress"
             android:drawablePadding="8dp"
             tools:ignore="HardcodedText" />
@@ -50,18 +54,22 @@
         android:id="@+id/passwordInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Password"
         app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/black"
+        app:passwordToggleTint="@color/white"
+        app:hintTextColor="@color/colorAccent"
+        app:boxStrokeColor="@color/colorAccent"
+        app:cursorColor="@color/white"
         android:layout_marginTop="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="18sp"
+            android:textCursorDrawable="@color/white"
             android:maxLength="8"
             android:inputType="textPassword"
             android:drawablePadding="8dp"
@@ -73,15 +81,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/black"
+        android:hint="Re-Enter Password"
+        app:passwordToggleTint="@color/white"
+        app:hintTextColor="@color/colorAccent"
+        app:boxStrokeColor="@color/colorAccent"
+        app:cursorColor="@color/white"
         android:layout_marginTop="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password2EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Re-Enter Password"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
+            android:textCursorDrawable="@color/white"
             android:textStyle="bold"
             android:textSize="18sp"
             android:maxLength="8"
@@ -91,14 +103,18 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signUpButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Sign Up"
-        android:textSize="24sp"
-        android:backgroundTint="@color/black"
-        tools:ignore="HardcodedText" />
+        android:layout_height="?attr/actionBarSize"
+        android:backgroundTint="@color/tertiaryColor"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:textSize="25sp"
+        android:elevation="20dp"
+        android:text="Sign Up" />
 
 </LinearLayout>

@@ -65,11 +65,11 @@ public class RoomsList extends Fragment {
         recyclerView.setAdapter(roomListAdapter);
 
         View searchPlate = searchView.findViewById(androidx.appcompat.R.id.search_plate);
-        searchPlate.setBackgroundColor(getResources().getColor(R.color.aqua));
+        searchPlate.setBackgroundColor(getResources().getColor(R.color.colorAccent));
         EditText searchText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
-        searchText.setTextColor(getResources().getColor(R.color.black));
+        searchText.setTextColor(getResources().getColor(R.color.white));
         ImageView searchIcon = searchView.findViewById(androidx.appcompat.R.id.search_button);
-        searchIcon.setColorFilter(getResources().getColor(R.color.black));
+        searchIcon.setColorFilter(getResources().getColor(R.color.white));
         ImageView closeIcon = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
         closeIcon.setColorFilter(getResources().getColor(R.color.white));
 
@@ -93,7 +93,6 @@ public class RoomsList extends Fragment {
                     for(RoomInfo roomInfo : roomsList){
                         if(roomInfo.getrCity().toLowerCase(Locale.ROOT).contains(input)||roomInfo.getrArea().toLowerCase(Locale.ROOT).contains(input)){
                             newRoomList.add(roomInfo);
-                            Toast.makeText(getContext(), "Filter"+roomInfo.getrAddress(), Toast.LENGTH_SHORT).show();
                         }
                     }
                     RoomListAdapter newRoomListAdapter = new RoomListAdapter(getContext(),newRoomList);
